@@ -1,0 +1,11 @@
+{
+  "name": "funi_bot",
+  "version": "1.0.1",
+  "main": "main.js",
+  "keywords": ["telegram-bot"],
+  "author": "delF",
+  "license": "MIT",
+  "dependencies": {
+    "telegraf": "^4.3.0"
+  }
+}
