@@ -1,17 +1,29 @@
 const { Telegraf } = require("telegraf");
 const bot = new Telegraf(require("./config.json").token);
-const fs = require("fs");
+const utils = require("./utils.js");
+const pastes = [];
 
-const files = fs.readdirSync("./txt/");
-/** @type {string[]} */
-const pasta = [];
-
-for (const file of files) {
-    pasta.push(fs.readFileSync("./txt/" + file, "utf-8"));
-}
+utils.load(pastes);
+console.log(pastes);
 
 bot.on("inline_query", async (ctx) => {
-    const sp = pasta.filter(p => p.toUpperCase().includes(ctx.inlineQuery.query.toUpperCase()));
+    bot.pastes.forEach(paste => {
+          ctx.answerInlineQuery(pst => {
+              return {
+                  id: pst.id,
+                  type: "article",
+                  title: `Paste about ${pst.title}`, //no rus layout moment :sadge:
+                  description: pst.desc,
+                  input_message_content: {
+                      message_text: pst.substr(0, 4090),
+                  },
+                  thumb_url: pst.image
+  
+              }
+          });
+      });
+
+/*    const sp = pasta.filter(p => p.toUpperCase().includes(ctx.inlineQuery.query.toUpperCase()));
 
 
     ctx.answerInlineQuery(sp.map(pst => {
@@ -26,8 +38,7 @@ bot.on("inline_query", async (ctx) => {
             },
             thumb_url: "https://media.discordapp.net/attachments/736635915065360492/852532903270678568/815666924095668285.png"
         }
-    }));
-})
+    }));*/})
 
 bot.launch();
 
