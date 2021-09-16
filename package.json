@@ -1,11 +1,18 @@
 {
-  "name": "funi_bot",
-  "version": "1.0.1",
-  "main": "main.js",
-  "keywords": ["telegram-bot"],
-  "author": "delF",
+  "name": "pasteBot",
+  "version": "2.0.0",
+  "main": "main.ts",
+  "description": "высран денгром и фиском",
+  "repository": "git@github.com:DmitryFisk/pasteBot.git",
+  "author": "DmitryFisk <fiskdmitry@gmail.com> & dengr1065",
   "license": "MIT",
   "dependencies": {
-    "telegraf": "^4.3.0"
+    "glob": "^7.1.7",
+    "telegraf": "^4.4.2",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.4.3"
+  },
+  "scripts": {
+    "run": "ts-node-dev --respawn --transpile-only --poll ./src/main.ts"
   }
 }
