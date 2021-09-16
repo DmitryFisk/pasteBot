@@ -6,9 +6,9 @@
 ## ПЕРЕД ТЕМ КАК ИСПОЛЬЗОВАТЬ БОТА, СГЕНЕРИРУЙТЕ ДЛЯ НЕГО ТОКЕН У [BotFather](https://t.me/BotFather) И ВКЛЮЧИТЕ ДЛЯ НЕГО ИНЛАЙН (/setinline)
 ### Также необходимо создать файл `config.json` и заполнить его так, как показано в `example-config.json`
 
-1. git clone git@github.com:DmitryFisk/pasteBot.git
-2. yarn install
-3. yarn run 
+1. ```git clone git@github.com:DmitryFisk/pasteBot.git```
+2. ```yarn install```
+3. ```yarn run```
 
 # todo:
     - [x] Перевести бота на TypeScript и убавить количество щиткода
