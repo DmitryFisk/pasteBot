@@ -15,7 +15,7 @@ bot.on("inline_query", async (ctx) => {
     ctx.answerInlineQuery(filter.map(p => {
         return {
             id: p.id,
-            title: p.name,
+            title: `Паста про ${p.name}`,
             description: p.description,
             type: "article",
             input_message_content: {
