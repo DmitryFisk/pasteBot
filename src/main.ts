@@ -1,21 +1,17 @@
 import { Telegraf } from "telegraf";
-import { GlobSync } from "glob";
-import { Config } from "./Interfaces/Config";
-import { Paste } from "./Interfaces/Paste";
-import * as File from "./config";
+import { generatePastes } from "./utils";
+import { token } from "./config";
 
-const bot: Telegraf = new Telegraf(((File as Config).token));
+const bot = new Telegraf(token);
 bot.pastes = [];
 
-loadPastes();
-
 bot.on("inline_query", async (ctx) => {
-    const filter: object = bot.pastes.filter(p => p.name.toUpperCase().includes(ctx.inlineQuery.query.toUpperCase()));
+    const filter: object = bot.pastes.filter(p => p.type.toUpperCase().includes(ctx.inlineQuery.query.toUpperCase()));
     
     ctx.answerInlineQuery(filter.map(p => {
         return {
             id: p.id,
-            title: `Паста про ${p.name}`,
+            title: `Паста про ${p.type.toLowerCase()}`,
             description: p.description,
             type: "article",
             input_message_content: {
@@ -25,17 +21,11 @@ bot.on("inline_query", async (ctx) => {
     }));
 });
 
-bot.launch().then(() => {
+bot.launch().then(async () => {
     console.log("Bot started");
-});
 
-async function loadPastes(array: object): Promise<void> {
-    const pastes: string[] = await GlobSync(`${__dirname}/./pastes/*.ts`);
-    pastes.found.map(async (value: string) => {
-        const file: Paste = await import(value);
-        bot.pastes.push(file);
-    });
-}
+    await generatePastes(bot);
+});
 
 process.once("SIGINT", () => bot.stop("SIGINT"));
 process.once("SIGTERM", () => bot.stop("SIGTERM"));
